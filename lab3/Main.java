@@ -21,26 +21,6 @@ public class Main {
         String userType = authorizeInApp();
         System.out.println("Authorize successful under " + userType);
         showStartMenu(userType);
-
-        // for (int i = 0; i < manager.getNumCinemas(); ++i) {
-        //     System.out.println("Cinema:");
-        //     System.out.println(manager.getCinema(i).getName());
-        //     for (int j = 0; j < manager.getCinema(i).getNumHalls(); ++j) {
-        //         System.out.println("Hall:");
-        //         System.out.println(manager.getCinema(i).getHall(j).getName());
-        //         for (int k = 0; k < manager.getCinema(i).getHall(j).getNumSeances(); ++k) {
-        //             System.out.println("Seance:");
-        //             System.out.println("Film:" + manager.getCinema(i).getHall(j).getSeance(k).getFilm());
-        //             System.out.println("Start Date Stamp:" + manager.getCinema(i).getHall(j).getSeance(k).getStartDateStamp());
-        //             System.out.println("Duration:" + manager.getCinema(i).getHall(j).getSeance(k).getDuration());
-        //             System.out.println("Plan:");
-        //             printStringArray(manager.getSeancePlan(i, j, k));
-        //         }
-        //     }
-        // }
-
-        // ArrayList<Integer> findedSeance = manager.findClosestSeance("test_film_1");
-        // printSeancePos(findedSeance);
     }
 
     public static void showStartMenu(String userType) {
