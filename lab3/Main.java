@@ -1,13 +1,9 @@
 package lab3;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Main {
@@ -264,9 +260,5 @@ public class Main {
         for (String string: stringArray) {
             System.out.println(string);
         }
-    }
-
-    public static void printSeancePos(ArrayList<Integer> seancePos) {
-        System.out.println("Cinema: " + seancePos.get(0) + " Hall: " + seancePos.get(1) + " Seance: " + seancePos.get(2));
     }
 }
