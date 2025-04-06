@@ -19,28 +19,28 @@ public class Library {
 
     public void addBook(Book book) {
         books.add(book);
-        authors.add(book.author);
-        if (authorCounts.containsKey(book.author)) {
-            authorCounts.put(book.author, authorCounts.get(book.author) + 1);
+        authors.add(book.getAuthor());
+        if (authorCounts.containsKey(book.getAuthor())) {
+            authorCounts.put(book.getAuthor(), authorCounts.get(book.getAuthor()) + 1);
         } else {
-            authorCounts.put(book.author, 1);
+            authorCounts.put(book.getAuthor(), 1);
         }
     }
 
     public void removeBook(Book book) {
         books.remove(book);
-        if (authorCounts.get(book.author) == 1) {
-            authorCounts.remove(book.author);
-            authors.remove(book.author);
+        if (authorCounts.get(book.getAuthor()) == 1) {
+            authorCounts.remove(book.getAuthor());
+            authors.remove(book.getAuthor());
         } else {
-            authorCounts.put(book.author, authorCounts.get(book.author) - 1);
+            authorCounts.put(book.getAuthor(), authorCounts.get(book.getAuthor()) - 1);
         }
     }
 
     public List<Book> findBooksByAuthor(String author) {
         List<Book> authorBooks = new ArrayList<Book>();
         for (Book book : books) {
-            if (book.author.equals(author)) {
+            if (book.getAuthor().equals(author)) {
                 authorBooks.add(book);
             }
         }
@@ -50,7 +50,7 @@ public class Library {
     public List<Book> findBooksByYear(int year) {
         List<Book> yearBooks = new ArrayList<Book>();
         for (Book book : books) {
-            if (book.year == year) {
+            if (book.getYear() == year) {
                 yearBooks.add(book);
             }
         }
