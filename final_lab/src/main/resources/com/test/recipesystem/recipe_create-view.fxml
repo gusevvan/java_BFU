@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.test.recipesystem.RecipeCreateController">
+   <children>
+      <HBox layoutX="1.0" layoutY="3.0">
+         <children>
+            <VBox>
+               <children>
+                  <Label text="Recipe name"/>
+                  <TextField fx:id="txtName"/>
+                  <Label text="Dish type"/>
+                  <ComboBox fx:id="dishTypesComboBox"/>
+                  <Label text="Calories in 100g"/>
+                  <TextField fx:id="txtCalories"/>
+                  <Label text="Recipe text"/>
+                  <TextArea fx:id="recipeTextArea"/>
+               </children>
+               <children>
+                  <Button fx:id="okButton" onAction="#onOkButtonClick" text="Ok" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

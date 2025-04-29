@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.test.recipesystem.RecipesController">
+   <children>
+      <VBox layoutX="1.0" layoutY="3.0">
+         <MenuBar>
+            <Menu text="Create">
+               <items>
+                  <MenuItem text="Recipe" onAction="#onRecipeCreateButtonClick"/>
+               </items>
+            </Menu>
+            <Menu text="Settings">
+               <items>
+                  <MenuItem text="Dish types" onAction="#onDishTypesButtonClick"/>
+               </items>
+            </Menu>
+         </MenuBar>
+         <TableView fx:id="tableRecipes" prefHeight="300" prefWidth="900">
+            <columns>
+               <TableColumn fx:id="idCol" text="Id"/>
+               <TableColumn fx:id="nameCol" text="Name"/>
+               <TableColumn fx:id="dishTypeCol" text="Dish type"/>
+               <TableColumn fx:id="caloriesPer100gCol" text="Calories in 100g"/>
+               <TableColumn fx:id="recipeTextCol" text="Recipe text"/>
+            </columns>
+      
+            <contextMenu>
+               <ContextMenu>
+                  <items>
+                     <MenuItem text="Delete" onAction="#handleDelete"/>
+                  </items>
+               </ContextMenu>
+            </contextMenu>
+         </TableView>
+      </VBox>
+   </children>
+</AnchorPane>
