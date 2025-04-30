@@ -32,9 +32,6 @@ public class DBAdapter {
     }
 
     static void insertDishType(String dishType) throws SQLException {
-        if (con == null) {
-            // throw;
-        }
         String sql = "INSERT INTO dish_types(dish_name) VALUES('"+dishType+"')";
         Statement stmt = con.createStatement();
         stmt.execute(sql);
