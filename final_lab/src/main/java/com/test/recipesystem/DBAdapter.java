@@ -10,7 +10,7 @@ public class DBAdapter {
     static void init(){
         if (con == null) {
             try {
-                con = DriverManager.getConnection("jdbc:sqlite:phonebook.sqlite");
+                con = DriverManager.getConnection("jdbc:sqlite:recipes.sqlite");
                 Statement stmt = con.createStatement();
                 String sql="""
                             CREATE TABLE IF NOT EXISTS 'dish_types' 
