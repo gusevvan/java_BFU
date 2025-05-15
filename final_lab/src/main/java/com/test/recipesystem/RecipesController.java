@@ -19,12 +19,13 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
-public class RecipesController implements Stageable {
+public class RecipesController implements Initializable {
     private Stage stage;
-    private Stageable parent;
+    private Map<String, String> settingTypeLocalizations;
 
     @FXML
     private TableView<Recipe> tableRecipes;
@@ -37,6 +38,15 @@ public class RecipesController implements Stageable {
     
     @FXML
     private TableColumn<Recipe, String> dishTypeCol;
+
+    @FXML
+    private TableColumn<Recipe, String> cuisineTypeCol;
+
+    @FXML
+    private TableColumn<Recipe, String> sourceCol;
+
+    @FXML
+    private TableColumn<Recipe, String> difficultyCol;
     
     @FXML
     private TableColumn<Recipe, Double> caloriesPer100gCol;
@@ -52,36 +62,73 @@ public class RecipesController implements Stageable {
     }
 
     @FXML
+    public void handleContraindication() throws IOException, SQLException {
+        Recipe recipe = tableRecipes.getSelectionModel().getSelectedItem();
+        Stage newStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(RecipeSystem.class.getResource("contraindication-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        ContraindicationController controller = fxmlLoader.getController();
+        controller.setRecipeId(recipe.getId());
+        newStage.setTitle("Противопоказания " + recipe.getName());
+        newStage.setScene(scene);
+        newStage.show();
+    }
+
+    @FXML
     public void onRecipeCreateButtonClick() throws IOException {
         Stage newStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(RecipeSystem.class.getResource("recipe_create-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 500, 400);
-        Stageable controller = fxmlLoader.getController();
-        controller.setStage(newStage, (Stageable)this);
-        newStage.setTitle("Recipe creation");
+        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        RecipeCreateController controller = fxmlLoader.getController();
+        controller.setParent(this);
+        newStage.setTitle("Создание рецепта");
         newStage.setScene(scene);
         newStage.show();
     }
 
     @FXML
     public void onDishTypesButtonClick() throws IOException {
-        Stage newStage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(RecipeSystem.class.getResource("dish_types-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        newStage.setTitle("Dish types settings");
-        newStage.setScene(scene);
-        newStage.show();
+        onSettingButtonClick("dish_type");
     }
 
-    @Override
-    public void setStage(Stage stage, Stageable parent) {
+    @FXML
+    public void onCuisineTypesButtonClick() throws IOException {
+        onSettingButtonClick("cuisine_type");
+    }
+
+    @FXML
+    public void onSourcesButtonClick() throws IOException {
+        onSettingButtonClick("source");
+    }
+
+    @FXML
+    public void onDifficultiesButtonClick() throws IOException {
+        onSettingButtonClick("difficulty");
+    }
+
+    @FXML
+    public void onContraindicationsButtonClick() throws IOException {
+        onSettingButtonClick("contraindication");
+    }
+
+    public void onSettingButtonClick(String settingType) throws IOException {
+        Stage newStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(RecipeSystem.class.getResource("setting-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        newStage.setTitle(settingTypeLocalizations.get(settingType));
+        newStage.setScene(scene);
+        newStage.show();
+        SettingController controller = fxmlLoader.getController();
+        controller.setType(settingType);
+        controller.setParent(this);
+    }
+
+    public void setStage(Stage stage) {
         this.stage = stage;
         tableRecipes.prefWidthProperty().bind(this.stage.widthProperty());
         tableRecipes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        this.parent = parent;
     }
 
-    @Override
     public void updateTable() throws IOException, SQLException {
         ArrayList<Recipe> data = DBAdapter.selectRecipes();
         ObservableList<Recipe> data_new = FXCollections.observableArrayList(data);
@@ -90,9 +137,15 @@ public class RecipesController implements Stageable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        settingTypeLocalizations = Map.of("dish_type", "Типы блюд", "cuisine_type", "Типы кухонь", "source", "Источники поступления",
+                                          "difficulty", "Сложности", "contraindication", "Противопоказания");
+
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         dishTypeCol.setCellValueFactory(new PropertyValueFactory<>("dishType"));
+        cuisineTypeCol.setCellValueFactory(new PropertyValueFactory<>("cuisineType"));
+        sourceCol.setCellValueFactory(new PropertyValueFactory<>("source"));
+        difficultyCol.setCellValueFactory(new PropertyValueFactory<>("difficulty"));
         caloriesPer100gCol.setCellValueFactory(new PropertyValueFactory<>("caloriesPer100g"));
         recipeTextCol.setCellValueFactory(new PropertyValueFactory<>("recipeText"));
 

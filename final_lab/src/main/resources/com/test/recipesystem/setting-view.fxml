@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.test.recipesystem.SettingController">
+   <children>
+      <HBox layoutX="1.0" layoutY="3.0">
+         <children>
+            <VBox>
+               <children>
+                  <Label fx:id="nameLabel" text="Name"/>
+                  <TextField fx:id="txtName"/>
+                  <Button mnemonicParsing="false" onAction="#onAddButtonClick" text="Добавить" />
+                  <Button mnemonicParsing="false" onAction="#onUpdateButtonClick" text="Изменить" />
+                  <Button mnemonicParsing="false" onAction="#onDeleteButtonClick" text="Удалить" />
+               </children>
+            </VBox>
+            <TableView fx:id="tableSetting" prefHeight="400" prefWidth="600">
+               <columns>
+                  <TableColumn fx:id="idCol" text="Id"/>
+                  <TableColumn fx:id="nameCol" text="Name" prefWidth="300"/>
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

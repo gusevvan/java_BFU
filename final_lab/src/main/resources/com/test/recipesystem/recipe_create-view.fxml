@@ -9,17 +9,23 @@
          <children>
             <VBox>
                <children>
-                  <Label text="Recipe name"/>
+                  <Label text="Название рецепта"/>
                   <TextField fx:id="txtName"/>
-                  <Label text="Dish type"/>
+                  <Label text="Тип блюда"/>
                   <ComboBox fx:id="dishTypesComboBox"/>
-                  <Label text="Calories in 100g"/>
+                  <Label text="Тип кухни"/>
+                  <ComboBox fx:id="cuisineTypesComboBox"/>
+                  <Label text="Источник поступления"/>
+                  <ComboBox fx:id="sourcesComboBox"/>
+                  <Label text="Сложность приготовления"/>
+                  <ComboBox fx:id="difficultiesComboBox"/>
+                  <Label text="Калории в 100 граммах"/>
                   <TextField fx:id="txtCalories"/>
-                  <Label text="Recipe text"/>
+                  <Label text="Текст рецепта"/>
                   <TextArea fx:id="recipeTextArea"/>
                </children>
                <children>
-                  <Button fx:id="okButton" onAction="#onOkButtonClick" text="Ok" />
+                  <Button fx:id="okButton" onAction="#onOkButtonClick" text="Ок" />
                </children>
             </VBox>
          </children>

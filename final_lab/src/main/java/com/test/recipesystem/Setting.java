@@ -3,12 +3,13 @@ package com.test.recipesystem;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class DishType {
+public class Setting {
     private SimpleIntegerProperty id;
-    private SimpleStringProperty dishType;
-    public DishType(int id, String dishType) {
+    private SimpleStringProperty name;
+
+    public Setting(int id, String name) {
         this.id = new SimpleIntegerProperty(id);
-        this.dishType = new SimpleStringProperty(dishType);
+        this.name = new SimpleStringProperty(name);
     }
 
     public int getId() {
@@ -19,12 +20,12 @@ public class DishType {
         id.set(idin);
     }
 
-    public String getDishType() {
-        return dishType.get();
+    public String getName() {
+        return name.get();
     }
 
-    public void setDishType(String dishType) {
-        this.dishType.set(dishType);
+    public void setName(String name) {
+        this.name.set(name);
     }
 
 }

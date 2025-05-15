@@ -7,30 +7,38 @@
    <children>
       <VBox layoutX="1.0" layoutY="3.0">
          <MenuBar>
-            <Menu text="Create">
+            <Menu text="Создать">
                <items>
-                  <MenuItem text="Recipe" onAction="#onRecipeCreateButtonClick"/>
+                  <MenuItem text="Рецепт" onAction="#onRecipeCreateButtonClick"/>
                </items>
             </Menu>
-            <Menu text="Settings">
+            <Menu text="Настройки">
                <items>
-                  <MenuItem text="Dish types" onAction="#onDishTypesButtonClick"/>
+                  <MenuItem text="Типы блюд" onAction="#onDishTypesButtonClick"/>
+                  <MenuItem text="Типы кухонь" onAction="#onCuisineTypesButtonClick"/>
+                  <MenuItem text="Источники" onAction="#onSourcesButtonClick"/>
+                  <MenuItem text="Сложности" onAction="#onDifficultiesButtonClick"/>
+                  <MenuItem text="Противопоказания" onAction="#onContraindicationsButtonClick"/>
                </items>
             </Menu>
          </MenuBar>
-         <TableView fx:id="tableRecipes" prefHeight="300" prefWidth="900">
+         <TableView fx:id="tableRecipes" prefHeight="300" prefWidth="1200">
             <columns>
-               <TableColumn fx:id="idCol" text="Id"/>
-               <TableColumn fx:id="nameCol" text="Name"/>
-               <TableColumn fx:id="dishTypeCol" text="Dish type"/>
-               <TableColumn fx:id="caloriesPer100gCol" text="Calories in 100g"/>
-               <TableColumn fx:id="recipeTextCol" text="Recipe text"/>
+               <TableColumn fx:id="idCol" text="Id" prefWidth="150"/>
+               <TableColumn fx:id="nameCol" text="Название" prefWidth="150"/>
+               <TableColumn fx:id="dishTypeCol" text="Тип блюда" prefWidth="150"/>
+               <TableColumn fx:id="cuisineTypeCol" text="Тип кухни" prefWidth="150"/>
+               <TableColumn fx:id="sourceCol" text="Источник поступления" prefWidth="150"/>
+               <TableColumn fx:id="difficultyCol" text="Сложность приготовления" prefWidth="150"/>
+               <TableColumn fx:id="caloriesPer100gCol" text="Калории в 100 граммах" prefWidth="150"/>
+               <TableColumn fx:id="recipeTextCol" text="Текст рецепта" prefWidth="150"/>
             </columns>
       
             <contextMenu>
                <ContextMenu>
                   <items>
-                     <MenuItem text="Delete" onAction="#handleDelete"/>
+                     <MenuItem text="Удалить" onAction="#handleDelete"/>
+                     <MenuItem text="Противопоказания" onAction="#handleContraindication"/>
                   </items>
                </ContextMenu>
             </contextMenu>

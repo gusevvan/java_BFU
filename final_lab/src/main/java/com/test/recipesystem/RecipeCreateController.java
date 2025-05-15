@@ -21,19 +21,30 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
-public class RecipeCreateController implements Stageable {
-    private Stage stage;
-    private Stageable parent;
+public class RecipeCreateController implements Initializable {
+    private RecipesController parent;
+    private Map<String, ComboBox<String>> comboBoxes;
 
     @FXML
     private TextField txtName;
     
     @FXML
     private ComboBox<String> dishTypesComboBox;
+
+    @FXML
+    private ComboBox<String> cuisineTypesComboBox;
+
+    @FXML
+    private ComboBox<String> sourcesComboBox;
+
+    @FXML
+    private ComboBox<String> difficultiesComboBox;
 
     @FXML
     private TextField txtCalories;
@@ -44,17 +55,15 @@ public class RecipeCreateController implements Stageable {
     @FXML
     private Button okButton;
 
-    @Override
-    public void setStage(Stage stage, Stageable parent) {
-		this.stage = stage;
+    public void setParent(RecipesController parent) {
         this.parent = parent;
 	}
 
     public void onOkButtonClick() throws IOException, SQLException {
-        if (!txtName.getText().isEmpty() && dishTypesComboBox.getValue() != null &&
-                !txtCalories.getText().isEmpty() && !recipeTextArea.getText().isEmpty()) {
-            DBAdapter.insertRecipe(txtName.getText(), Integer.valueOf(dishTypesComboBox.getValue().split("\\.")[0]), 
-                                    Double.valueOf(txtCalories.getText()), recipeTextArea.getText());
+        if (!txtName.getText().isEmpty() && dishTypesComboBox.getValue() != null && cuisineTypesComboBox.getValue() != null && difficultiesComboBox.getValue() != null &&
+                sourcesComboBox.getValue() != null && !txtCalories.getText().isEmpty() && !recipeTextArea.getText().isEmpty()) {
+            DBAdapter.insertRecipe(txtName.getText(), dishTypesComboBox.getValue(), cuisineTypesComboBox.getValue(), sourcesComboBox.getValue(), 
+                                    difficultiesComboBox.getValue(), Double.valueOf(txtCalories.getText()), recipeTextArea.getText());
             Stage stage = (Stage)okButton.getScene().getWindow();
             stage.close();
             parent.updateTable();
@@ -62,20 +71,20 @@ public class RecipeCreateController implements Stageable {
     }
 
     private void fillComboBoxes() throws IOException, SQLException {
-        ObservableList<String> dishTypes = FXCollections.observableArrayList();
-        for (DishType dishType : DBAdapter.selectDishTypes()) {
-            dishTypes.add(dishType.getId() + ". " + dishType.getDishType());
+        for (String settingType: new ArrayList<String>(Arrays.asList("dish_type", "cuisine_type", "source", "difficulty"))) {
+            ObservableList<String> settings = FXCollections.observableArrayList();
+            for (Setting setting : DBAdapter.selectSettings(settingType)) {
+                settings.add(setting.getName());
+            }
+            comboBoxes.get(settingType).setItems(settings);
         }
-        dishTypesComboBox.setItems(dishTypes);
     }
 
-    @Override 
-    public void updateTable() throws IOException, SQLException {
-
-    }
-    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)  {
+        comboBoxes = Map.of("dish_type", dishTypesComboBox, "cuisine_type", cuisineTypesComboBox, "difficulty", difficultiesComboBox,
+                            "source", sourcesComboBox);
+
         TextFormatter<Double> formatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.matches("-?\\d*([.,]\\d*)?")) { 
